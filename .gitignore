@@ -19,4 +19,4 @@ local.properties
 /captures
 .externalNativeBuild
 .cxx
-local.properties
+/.idea/
