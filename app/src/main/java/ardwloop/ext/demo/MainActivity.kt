@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
+import org.llschall.ardwloop.ArdwloopStarter
+import org.llschall.ardwloop.ext.ArdwloopExtStarter
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +41,11 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier
         )
         Text(
-            text = "ardwloop ",
+            text = "ardwloop " + ArdwloopStarter.VERSION,
             modifier = modifier
         )
         Text(
-            text = "ardwloop-ext ",
+            text = "ardwloop-ext " + ArdwloopExtStarter().VERSION,
             modifier = modifier
         )
     }
