@@ -1,5 +1,6 @@
 package ardwloop.ext.demo
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ardwloop.ext.demo.model.BluetoothHandler
@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
             ArdwloopTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
+                        context = applicationContext,
                         name = "Ardwloop Ext Demo",
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -40,7 +41,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
 
     val model: LogsModel = viewModel()
 
@@ -69,7 +70,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 )
             }
             Button(onClick = {
-                BluetoothHandler.handler.start(model);
+                BluetoothHandler.handler.start(context, model);
             }) {
                 Text(
                     text = "Handler",
@@ -84,13 +85,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ArdwloopTheme {
-        Greeting("Android")
     }
 }
