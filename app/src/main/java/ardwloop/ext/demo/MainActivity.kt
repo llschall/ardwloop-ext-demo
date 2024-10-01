@@ -58,7 +58,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
             modifier = modifier, fontSize = 12.sp
         )
         Button(onClick = {
-            model.add()
+            model.add("start")
         }) {
             Text(
                 text = "Start",
