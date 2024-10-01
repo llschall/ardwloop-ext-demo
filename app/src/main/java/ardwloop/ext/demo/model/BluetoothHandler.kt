@@ -2,6 +2,7 @@ package ardwloop.ext.demo.model
 
 import android.Manifest
 import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
@@ -15,7 +16,9 @@ class BluetoothHandler {
         val handler: BluetoothHandler = BluetoothHandler()
     }
 
-    fun start(context: Context, logs: LogsModel) {
+    private var socket: BluetoothSocket? = null
+
+    fun connect(context: Context, logs: LogsModel) {
         logs.add("handler")
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.add("enabled: " + manager.adapter.isEnabled)
@@ -24,6 +27,7 @@ class BluetoothHandler {
                 Manifest.permission.BLUETOOTH_CONNECT
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -35,14 +39,23 @@ class BluetoothHandler {
                 logs.add("name: " + device.name)
                 if (device.name == "HC05") {
                     logs.add("=== Found HC05 ===")
-
                     val uuid = UUID.fromString(SPP_UUID)
-                    device.createRfcommSocketToServiceRecord(uuid)
-                    manager.adapter.cancelDiscovery()
+                    socket = device.createRfcommSocketToServiceRecord(uuid)
+                    socket!!.connect()
+                    logs.add("" + socket!!.connectionType)
+                    logs.add("" + socket!!.maxReceivePacketSize)
+                    logs.add("" + socket!!.maxTransmitPacketSize)
                 }
             }
+            manager.adapter.cancelDiscovery()
+            logs.add("finished")
         }
+    }
 
+    fun close(logs: LogsModel) {
+        logs.add("close")
+        socket?.close()
+        logs.add("finished")
     }
 
 }

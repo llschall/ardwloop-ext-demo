@@ -70,10 +70,18 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 )
             }
             Button(onClick = {
-                BluetoothHandler.handler.start(context, model);
+                BluetoothHandler.handler.connect(context, model);
             }) {
                 Text(
-                    text = "Handler",
+                    text = "Connect",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                BluetoothHandler.handler.close(model);
+            }) {
+                Text(
+                    text = "Close",
                     fontSize = 28.sp
                 )
             }
