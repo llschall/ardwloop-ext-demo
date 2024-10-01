@@ -7,14 +7,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
 import org.llschall.ardwloop.ArdwloopStarter
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,19 +41,37 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+
+    val model: LogsModel = viewModel()
+
     Column {
         Text(
             text = "Hello $name !",
-            modifier = modifier
+            modifier = modifier,
+            fontSize = 12.sp
         )
         Text(
             text = "ardwloop " + ArdwloopStarter.VERSION,
-            modifier = modifier
+            modifier = modifier,
+            fontSize = 12.sp
         )
         Text(
             text = "ardwloop-ext " + ArdwloopExtStarter().VERSION,
-            modifier = modifier
+            modifier = modifier, fontSize = 12.sp
         )
+        Button(onClick = {
+            model.add()
+        }) {
+            Text(
+                text = "Start",
+                fontSize = 28.sp
+            )
+        }
+        for (text in model.logs) {
+            Text(
+                text = text
+            )
+        }
     }
 }
 
@@ -56,5 +80,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     ArdwloopTheme {
         Greeting("Android")
+    }
+}
+
+class LogsModel() : ViewModel() {
+    val logs = List(2) { "*" }.toMutableStateList()
+
+    fun add() {
+        logs.add(Date().time.toString() + " µµµ")
     }
 }
