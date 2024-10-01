@@ -8,7 +8,7 @@ class LogsModel() : ViewModel() {
     val logs = List(2) { "*" }.toMutableStateList()
 
     fun add(msg: String) {
-        if (logs.size == 16) logs.remove(logs.first())
-        logs.add(Date().time.toString() + "µµµ " + msg)
+        if (logs.size == 27) logs.remove(logs.first())
+        logs.add(Date().time.toString() + " µµµ " + msg)
     }
 }

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ardwloop.ext.demo.model.BluetoothHandler
 import ardwloop.ext.demo.model.LogsModel
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
 import org.llschall.ardwloop.ArdwloopStarter
@@ -42,33 +44,45 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
     val model: LogsModel = viewModel()
 
-    Column {
-        Text(
-            text = "Hello $name !",
-            modifier = modifier,
-            fontSize = 12.sp
-        )
-        Text(
-            text = "ardwloop " + ArdwloopStarter.VERSION,
-            modifier = modifier,
-            fontSize = 12.sp
-        )
-        Text(
-            text = "ardwloop-ext " + ArdwloopExtStarter().VERSION,
-            modifier = modifier, fontSize = 12.sp
-        )
-        Button(onClick = {
-            model.add("start")
-        }) {
+    Row {
+        Column {
             Text(
-                text = "Start",
-                fontSize = 28.sp
+                text = "Hello $name !",
+                modifier = modifier,
+                fontSize = 12.sp
             )
+            Text(
+                text = "ardwloop " + ArdwloopStarter.VERSION,
+                modifier = modifier,
+                fontSize = 12.sp
+            )
+            Text(
+                text = "ardwloop-ext " + ArdwloopExtStarter().VERSION,
+                modifier = modifier, fontSize = 12.sp
+            )
+            Button(onClick = {
+                model.add("start")
+            }) {
+                Text(
+                    text = "Start",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                BluetoothHandler.handler.start(model);
+            }) {
+                Text(
+                    text = "Handler",
+                    fontSize = 28.sp
+                )
+            }
         }
-        for (text in model.logs) {
-            Text(
-                text = text
-            )
+        Column {
+            for (text in model.logs) {
+                Text(
+                    text = text
+                )
+            }
         }
     }
 }
