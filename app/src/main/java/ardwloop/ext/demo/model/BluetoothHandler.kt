@@ -58,4 +58,19 @@ class BluetoothHandler {
         logs.add("finished")
     }
 
+    fun write(b: ByteArray) {
+        socket!!.outputStream.write(b)
+    }
+
+    fun read(): ByteArray {
+        val stream = socket!!.inputStream
+        val array = mutableListOf<Byte>()
+        var n = stream.available()
+        while (n > 0) {
+            val b = stream.read()
+            array.add(b.toByte())
+            n = stream.available()
+        }
+        return array.toByteArray()
+    }
 }

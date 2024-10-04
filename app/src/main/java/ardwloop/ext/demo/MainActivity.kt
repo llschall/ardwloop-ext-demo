@@ -78,6 +78,24 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 )
             }
             Button(onClick = {
+                BluetoothHandler.handler.write(byteArrayOf(99, 100));
+            }) {
+                Text(
+                    text = "Write",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                val bytes = BluetoothHandler.handler.read();
+                model.add(bytes.toString())
+                model.add(bytes.size.toString() + " bytes read")
+            }) {
+                Text(
+                    text = "Read",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
                 BluetoothHandler.handler.close(model);
             }) {
                 Text(
