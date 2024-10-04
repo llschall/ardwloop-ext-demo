@@ -109,6 +109,15 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     fontSize = 28.sp
                 )
             }
+            Spacer(modifier)
+            Button(onClick = {
+                BluetoothHandler.handler.demo()
+            }) {
+                Text(
+                    text = "Demo",
+                    fontSize = 28.sp
+                )
+            }
         }
         Column {
             for (text in model.logs) {

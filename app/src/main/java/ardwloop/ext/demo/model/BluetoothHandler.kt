@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import java.util.UUID
 
 //See https://developer.android.com/reference/android/bluetooth/BluetoothDevice
@@ -73,4 +74,12 @@ class BluetoothHandler {
         }
         return array.toByteArray()
     }
+
+    fun demo() {
+
+        val starter = ArdwloopExtStarter()
+
+
+    }
+
 }
