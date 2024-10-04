@@ -76,10 +76,8 @@ class BluetoothHandler {
     }
 
     fun demo() {
-
         val starter = ArdwloopExtStarter()
-
-
+        starter.start(DemoProgram())
     }
 
 }
