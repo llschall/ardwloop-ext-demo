@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -62,13 +63,14 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 modifier = modifier, fontSize = 12.sp
             )
             Button(onClick = {
-                model.add("start")
+                model.add("=====================")
             }) {
                 Text(
-                    text = "Start",
+                    text = "Print",
                     fontSize = 28.sp
                 )
             }
+            Spacer(modifier)
             Button(onClick = {
                 BluetoothHandler.handler.connect(context, model);
             }) {
@@ -77,14 +79,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     fontSize = 28.sp
                 )
             }
-            Button(onClick = {
-                BluetoothHandler.handler.write(byteArrayOf(99, 100));
-            }) {
-                Text(
-                    text = "Write",
-                    fontSize = 28.sp
-                )
-            }
+            Spacer(modifier)
             Button(onClick = {
                 val bytes = BluetoothHandler.handler.read();
                 model.add(bytes.toString())
@@ -95,8 +90,18 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     fontSize = 28.sp
                 )
             }
+            Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.close(model);
+                BluetoothHandler.handler.write(byteArrayOf(99, 100));
+            }) {
+                Text(
+                    text = "Write",
+                    fontSize = 28.sp
+                )
+            }
+            Spacer(modifier)
+            Button(onClick = {
+                BluetoothHandler.handler.close(model)
             }) {
                 Text(
                     text = "Close",
