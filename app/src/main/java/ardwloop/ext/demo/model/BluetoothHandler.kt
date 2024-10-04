@@ -19,9 +19,9 @@ class BluetoothHandler {
     private var socket: BluetoothSocket? = null
 
     fun connect(context: Context, logs: LogsModel) {
-        logs.add("handler")
+        logs.msg("handler")
         val manager = context.getSystemService(BluetoothManager::class.java)
-        logs.add("enabled: " + manager.adapter.isEnabled)
+        logs.msg("enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.BLUETOOTH_CONNECT
@@ -36,26 +36,26 @@ class BluetoothHandler {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             for (device in manager.adapter.bondedDevices) {
-                logs.add("name: " + device.name)
+                logs.msg("name: " + device.name)
                 if (device.name == "HC05") {
-                    logs.add("=== Found HC05 ===")
+                    logs.msg("=== Found HC05 ===")
                     val uuid = UUID.fromString(SPP_UUID)
                     socket = device.createRfcommSocketToServiceRecord(uuid)
                     socket!!.connect()
-                    logs.add("" + socket!!.connectionType)
-                    logs.add("" + socket!!.maxReceivePacketSize)
-                    logs.add("" + socket!!.maxTransmitPacketSize)
+                    logs.msg("" + socket!!.connectionType)
+                    logs.msg("" + socket!!.maxReceivePacketSize)
+                    logs.msg("" + socket!!.maxTransmitPacketSize)
                 }
             }
             manager.adapter.cancelDiscovery()
-            logs.add("finished")
+            logs.msg("finished")
         }
     }
 
     fun close(logs: LogsModel) {
-        logs.add("close")
+        logs.msg("close")
         socket?.close()
-        logs.add("finished")
+        logs.msg("finished")
     }
 
     fun write(b: ByteArray) {

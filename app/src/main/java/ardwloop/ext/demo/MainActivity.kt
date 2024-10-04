@@ -63,7 +63,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 modifier = modifier, fontSize = 12.sp
             )
             Button(onClick = {
-                model.add("=====================")
+                model.msg("=====================")
             }) {
                 Text(
                     text = "Print",
@@ -82,8 +82,9 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             Spacer(modifier)
             Button(onClick = {
                 val bytes = BluetoothHandler.handler.read();
-                model.add(bytes.toString())
-                model.add(bytes.size.toString() + " bytes read")
+                model.addBytes(bytes)
+                model.msg(bytes.toString())
+                model.msg(bytes.size.toString() + " bytes read")
             }) {
                 Text(
                     text = "Read",
@@ -115,6 +116,11 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     text = text
                 )
             }
+        }
+        Column {
+            Text(
+                text = model.dumpBytes()
+            )
         }
     }
 }
