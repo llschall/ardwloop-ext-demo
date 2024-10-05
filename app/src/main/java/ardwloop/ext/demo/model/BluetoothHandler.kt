@@ -75,9 +75,16 @@ class BluetoothHandler {
         return array.toByteArray()
     }
 
-    fun demo() {
-        val starter = ArdwloopExtStarter()
-        starter.start(DemoProgram())
+    val program = DemoProgram()
+
+    fun demo(logs: LogsModel) {
+        try {
+            val starter = ArdwloopExtStarter()
+            starter.start(program, socket!!, "HC05")
+            logs.msg("Demo started")
+        } catch (e: Exception) {
+            logs.msg("ERR: " + e.message.toString())
+        }
     }
 
 }

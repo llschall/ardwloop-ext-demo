@@ -6,6 +6,7 @@ import java.io.StringWriter
 import java.util.Date
 
 class LogsModel() : ViewModel() {
+
     val logs = List(2) { "*" }.toMutableStateList()
 
     val bytes = List(2) { (99).toByte() }.toMutableStateList()
@@ -17,7 +18,7 @@ class LogsModel() : ViewModel() {
 
     fun addBytes(bytes: ByteArray) {
         bytes.forEach { this.bytes.add(it) }
-        
+
     }
 
     fun dumpBytes(): String {

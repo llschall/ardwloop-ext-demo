@@ -22,6 +22,7 @@ import ardwloop.ext.demo.model.LogsModel
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
 import org.llschall.ardwloop.ArdwloopStarter
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
+import org.llschall.ardwloop.structure.utils.Logger
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
 
+    Logger.skipMsg = true
     val model: LogsModel = viewModel()
 
     Row {
@@ -111,10 +113,26 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.demo()
+                BluetoothHandler.handler.demo(model)
             }) {
                 Text(
                     text = "Demo",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                BluetoothHandler.handler.program.v = 0
+            }) {
+                Text(
+                    text = "Off",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                BluetoothHandler.handler.program.v = 1
+            }) {
+                Text(
+                    text = "On",
                     fontSize = 28.sp
                 )
             }
