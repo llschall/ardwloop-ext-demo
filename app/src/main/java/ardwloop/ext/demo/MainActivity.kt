@@ -56,12 +56,12 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 fontSize = 12.sp
             )
             Text(
-                text = "ardwloop " + ArdwloopStarter.VERSION,
+                text = "ardwloop " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT,
                 modifier = modifier,
                 fontSize = 12.sp
             )
             Text(
-                text = "ardwloop-ext " + ArdwloopExtStarter().VERSION,
+                text = "ardwloop-ext " + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT,
                 modifier = modifier, fontSize = 12.sp
             )
             Button(onClick = {
