@@ -136,6 +136,18 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     fontSize = 28.sp
                 )
             }
+            Spacer(modifier)
+            Button(onClick = {
+                if (BluetoothHandler.handler.program.v == 0)
+                    BluetoothHandler.handler.program.v = 1
+                else
+                    BluetoothHandler.handler.program.v = 0
+            }) {
+                Text(
+                    text = "Switch",
+                    fontSize = 28.sp
+                )
+            }
         }
         Column {
             for (text in model.logs) {
