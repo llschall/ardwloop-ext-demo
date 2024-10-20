@@ -82,8 +82,19 @@ class BluetoothHandler {
             val starter = ArdwloopExtStarter()
             starter.start(program, socket!!, "HC05")
             logs.msg("Demo started")
+            logs.status[0] = "OFF"
         } catch (e: Exception) {
             logs.msg("ERR: " + e.message.toString())
+        }
+    }
+
+    fun switch(logs: LogsModel) {
+        if (handler.program.v == 0) {
+            handler.program.v = 1
+            logs.status[0] = "ON"
+        } else {
+            handler.program.v = 0
+            logs.status[0] = "OFF"
         }
     }
 

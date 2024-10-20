@@ -11,6 +11,8 @@ class LogsModel() : ViewModel() {
 
     val bytes = List(2) { (99).toByte() }.toMutableStateList()
 
+    val status = List(1) { "not started" }.toMutableStateList()
+
     fun msg(msg: String) {
         if (logs.size == 27) logs.remove(logs.first())
         logs.add(Date().time.toString() + " µµµ " + msg)
@@ -18,7 +20,6 @@ class LogsModel() : ViewModel() {
 
     fun addBytes(bytes: ByteArray) {
         bytes.forEach { this.bytes.add(it) }
-
     }
 
     fun dumpBytes(): String {

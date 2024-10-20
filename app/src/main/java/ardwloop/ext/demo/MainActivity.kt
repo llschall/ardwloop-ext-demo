@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ardwloop.ext.demo.model.BluetoothHandler
@@ -47,6 +48,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
 
     Logger.skipMsg = true
     val model: LogsModel = viewModel()
+    val modifier = Modifier.padding(Dp(3f))
 
     Row {
         Column {
@@ -120,32 +122,17 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                     fontSize = 28.sp
                 )
             }
-            Button(onClick = {
-                BluetoothHandler.handler.program.v = 0
-            }) {
-                Text(
-                    text = "Off",
-                    fontSize = 28.sp
-                )
-            }
-            Button(onClick = {
-                BluetoothHandler.handler.program.v = 1
-            }) {
-                Text(
-                    text = "On",
-                    fontSize = 28.sp
-                )
-            }
+            Text(
+                text = model.status.first(),
+                fontSize = 28.sp
+            )
             Spacer(modifier)
             Button(onClick = {
-                if (BluetoothHandler.handler.program.v == 0)
-                    BluetoothHandler.handler.program.v = 1
-                else
-                    BluetoothHandler.handler.program.v = 0
+                BluetoothHandler.handler.switch(model)
             }) {
                 Text(
                     text = "Switch",
-                    fontSize = 28.sp
+                    fontSize = 64.sp
                 )
             }
         }
