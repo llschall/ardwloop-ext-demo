@@ -19,7 +19,17 @@ class BluetoothHandler {
 
     private var socket: BluetoothSocket? = null
 
-    fun connect(context: Context, logs: LogsModel) {
+
+    fun connectExc(context: Context, logs: LogsModel) {
+        try {
+            connect(context = context, logs = logs)
+        } catch (error: Throwable) {
+            logs.err(error)
+        }
+    }
+
+
+    private fun connect(context: Context, logs: LogsModel) {
         logs.msg("handler")
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.msg("enabled: " + manager.adapter.isEnabled)

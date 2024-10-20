@@ -76,7 +76,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.connect(context, model);
+                BluetoothHandler.handler.connectExc(context, model);
             }) {
                 Text(
                     text = "Connect",

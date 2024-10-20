@@ -18,6 +18,15 @@ class LogsModel() : ViewModel() {
         logs.add(Date().time.toString() + " µµµ " + msg)
     }
 
+    fun err(error: Throwable) {
+        logs.clear()
+        logs.add("==================")
+        logs.add(error.message.toString())
+        logs.add("==================")
+        error.stackTrace.forEach { logs.add(it.toString()) }
+        logs.add("==================")
+    }
+
     fun addBytes(bytes: ByteArray) {
         bytes.forEach { this.bytes.add(it) }
     }
