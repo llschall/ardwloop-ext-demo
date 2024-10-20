@@ -2,7 +2,7 @@
 activityCompose = "1.9.3"
 agp = "8.7.1"
 ardwloopExt = "0.1.4"
-composeBom = "2024.10.00"
+composeBom = "2024.09.03"
 coreKtx = "1.13.1"
 espressoCore = "3.6.1"
 junit = "4.13.2"
