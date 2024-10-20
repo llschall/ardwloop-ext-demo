@@ -20,3 +20,5 @@ local.properties
 .externalNativeBuild
 .cxx
 /.idea/
+/app/debug/
+/app/release/
