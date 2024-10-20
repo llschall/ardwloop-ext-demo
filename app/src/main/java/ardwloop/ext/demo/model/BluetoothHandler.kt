@@ -19,17 +19,17 @@ class BluetoothHandler {
 
     private var socket: BluetoothSocket? = null
 
+    val logs = LogsModel()
 
-    fun connectExc(context: Context, logs: LogsModel) {
+    fun connectExc(context: Context) {
         try {
-            connect(context = context, logs = logs)
+            connect(context = context)
         } catch (error: Throwable) {
             logs.err(error)
         }
     }
 
-
-    private fun connect(context: Context, logs: LogsModel) {
+    private fun connect(context: Context) {
         logs.msg("handler")
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.msg("enabled: " + manager.adapter.isEnabled)
@@ -63,7 +63,7 @@ class BluetoothHandler {
         }
     }
 
-    fun close(logs: LogsModel) {
+    fun close() {
         logs.msg("close")
         socket?.close()
         logs.msg("finished")
@@ -87,7 +87,11 @@ class BluetoothHandler {
 
     val program = DemoProgram()
 
-    fun demo(logs: LogsModel) {
+    fun print() {
+        logs.dump()
+    }
+
+    fun demo() {
         try {
             val starter = ArdwloopExtStarter()
             starter.start(program, socket!!, "HC05")
@@ -98,7 +102,7 @@ class BluetoothHandler {
         }
     }
 
-    fun switch(logs: LogsModel) {
+    fun switch() {
         if (handler.program.v == 0) {
             handler.program.v = 1
             logs.status[0] = "ON"

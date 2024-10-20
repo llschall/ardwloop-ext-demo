@@ -2,7 +2,8 @@ package ardwloop.ext.demo.model
 
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
-import java.io.StringWriter
+import org.llschall.ardwloop.ArdwloopStarter
+import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import java.util.Date
 
 class LogsModel() : ViewModel() {
@@ -13,9 +14,17 @@ class LogsModel() : ViewModel() {
 
     val status = List(1) { "not started" }.toMutableStateList()
 
+    fun dump() {
+        msg("ArdwloopExt:" + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT)
+        msg("Ardwloop: " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT)
+        msg("Runtime: " + Runtime.getRuntime().availableProcessors());
+        msg("Runtime: " + Runtime.getRuntime().freeMemory() / 1024)
+        msg("Runtime: " + Runtime.getRuntime().maxMemory() / 1024)
+    }
+
     fun msg(msg: String) {
         if (logs.size == 27) logs.remove(logs.first())
-        logs.add(Date().time.toString() + " µµµ " + msg)
+        logs.add(Date().time.toString() + " " + msg)
     }
 
     fun err(error: Throwable) {
@@ -28,14 +37,5 @@ class LogsModel() : ViewModel() {
 
     fun addBytes(bytes: ByteArray) {
         bytes.forEach { this.bytes.add(it) }
-    }
-
-    fun dumpBytes(): String {
-
-        val writer = StringWriter()
-        for (byte in bytes) {
-            writer.append(byte.toInt().toChar())
-        }
-        return writer.toString()
     }
 }

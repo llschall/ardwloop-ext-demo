@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,9 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ardwloop.ext.demo.model.BluetoothHandler
-import ardwloop.ext.demo.model.LogsModel
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
 import org.llschall.ardwloop.ArdwloopStarter
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
@@ -30,7 +27,6 @@ import org.llschall.ardwloop.structure.utils.Logger
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             ArdwloopTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -49,16 +45,10 @@ class MainActivity : ComponentActivity() {
 fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
 
     Logger.skipMsg = true
-    val model: LogsModel = viewModel()
     val modifier = Modifier.padding(Dp(3f))
 
     Row {
         Column {
-            Text(
-                text = "Hello $name !",
-                modifier = modifier,
-                fontSize = 12.sp
-            )
             Text(
                 text = "ardwloop " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT,
                 modifier = modifier,
@@ -69,7 +59,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 modifier = modifier, fontSize = 12.sp
             )
             Button(onClick = {
-                model.msg("=====================")
+                BluetoothHandler.handler.print()
             }) {
                 Text(
                     text = "Print",
@@ -78,7 +68,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.connectExc(context, model);
+                BluetoothHandler.handler.connectExc(context);
             }) {
                 Text(
                     text = "Connect",
@@ -88,9 +78,9 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             Spacer(modifier)
             Button(onClick = {
                 val bytes = BluetoothHandler.handler.read();
-                model.addBytes(bytes)
-                model.msg(bytes.toString())
-                model.msg(bytes.size.toString() + " bytes read")
+                BluetoothHandler.handler.logs.addBytes(bytes)
+                BluetoothHandler.handler.logs.msg(bytes.toString())
+                BluetoothHandler.handler.logs.msg(bytes.size.toString() + " bytes read")
             }) {
                 Text(
                     text = "Read",
@@ -108,7 +98,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.close(model)
+                BluetoothHandler.handler.close()
             }) {
                 Text(
                     text = "Close",
@@ -117,7 +107,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.demo(model)
+                BluetoothHandler.handler.demo()
             }) {
                 Text(
                     text = "Demo",
@@ -125,12 +115,12 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 )
             }
             Text(
-                text = model.status.first(),
+                text = BluetoothHandler.handler.logs.status.first(),
                 fontSize = 28.sp
             )
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.switch(model)
+                BluetoothHandler.handler.switch()
             }) {
                 Text(
                     text = "Switch",
@@ -143,16 +133,11 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
                 rememberScrollState()
             )
         ) {
-            for (text in model.logs) {
+            for (text in BluetoothHandler.handler.logs.logs) {
                 Text(
                     text = text
                 )
             }
-        }
-        Column {
-            Text(
-                text = model.dumpBytes()
-            )
         }
     }
 }
