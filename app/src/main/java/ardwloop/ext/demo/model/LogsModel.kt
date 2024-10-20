@@ -19,7 +19,6 @@ class LogsModel() : ViewModel() {
     }
 
     fun err(error: Throwable) {
-        logs.clear()
         logs.add("==================")
         logs.add(error.message.toString())
         logs.add("==================")
