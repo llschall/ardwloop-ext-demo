@@ -30,22 +30,14 @@ class BluetoothHandler {
     }
 
     private fun connect(context: Context) {
-        logs.msg("handler")
         val manager = context.getSystemService(BluetoothManager::class.java)
-        logs.msg("enabled: " + manager.adapter.isEnabled)
+        logs.msg("Enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.BLUETOOTH_CONNECT
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            logs.msg("Connection permission granted.")
             for (device in manager.adapter.bondedDevices) {
                 logs.msg("name: " + device.name)
                 if (device.name == "HC05") {
@@ -58,8 +50,17 @@ class BluetoothHandler {
                     logs.msg("" + socket!!.maxTransmitPacketSize)
                 }
             }
-            manager.adapter.cancelDiscovery()
-            logs.msg("finished")
+            logs.msg("Finished.")
+        } else {
+            logs.msg("Insufficient connection permissions.")
+
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
         }
     }
 
