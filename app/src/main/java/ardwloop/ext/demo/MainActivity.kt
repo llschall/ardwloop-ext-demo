@@ -78,7 +78,7 @@ fun Greeting(
             }) {
                 Text(
                     text = "Connect",
-                    fontSize = 28.sp
+                    fontSize = 42.sp
                 )
             }
             Spacer(modifier)
@@ -117,7 +117,7 @@ fun Greeting(
             }) {
                 Text(
                     text = "Demo",
-                    fontSize = 28.sp
+                    fontSize = 42.sp
                 )
             }
             Text(
@@ -130,7 +130,16 @@ fun Greeting(
             }) {
                 Text(
                     text = "Switch",
-                    fontSize = 64.sp
+                    fontSize = 72.sp
+                )
+            }
+            Spacer(modifier)
+            Button(onClick = {
+                BluetoothHandler.handler.exit()
+            }) {
+                Text(
+                    text = "Exit",
+                    fontSize = 28.sp
                 )
             }
         }

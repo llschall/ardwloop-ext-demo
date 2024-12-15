@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import ardwloop.ext.demo.MainActivity
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
+import org.llschall.ardwloop.structure.StructureTimer
 import java.util.UUID
 
 //See https://developer.android.com/reference/android/bluetooth/BluetoothDevice
@@ -112,6 +113,10 @@ class BluetoothHandler {
             handler.program.v = 0
             logs.status[0] = "OFF"
         }
+    }
+
+    fun exit() {
+        StructureTimer.get().shutdown()
     }
 
 }
