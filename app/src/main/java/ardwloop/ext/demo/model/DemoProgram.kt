@@ -1,22 +1,19 @@
 package ardwloop.ext.demo.model
 
 import org.llschall.ardwloop.IArdwProgram
-import org.llschall.ardwloop.structure.data.LoopData
-import org.llschall.ardwloop.structure.data.SerialData
-import org.llschall.ardwloop.structure.data.SetupData
+import org.llschall.ardwloop.value.ValueMap
 
-class DemoProgram : IArdwProgram {
+class DemoProgram(private val logs: LogsModel) : IArdwProgram {
 
     var v = 0
 
-    override fun ardwSetup(s: SetupData?): SetupData {
-        print("SETUP")
-        return SetupData(SerialData(1, 2, 3, 4, 5, 6))
+    override fun ardwSetup(s: ValueMap): ValueMap {
+        logs.msg("== Program Setup OK ==")
+        return ValueMap(2, 3, 4, 5, 6)
     }
 
-    override fun ardwLoop(s: LoopData?): LoopData {
-        print("LOOP")
-        return LoopData(SerialData(1, v, 3, 4, 5, 6))
+    override fun ardwLoop(s: ValueMap): ValueMap {
+        return ValueMap(v, 3, 4, 5, 6)
     }
 
     override fun getRc(): Int {

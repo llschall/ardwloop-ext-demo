@@ -31,6 +31,7 @@ class MainActivity : ComponentActivity() {
             ArdwloopTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
+                        activity = this,
                         context = applicationContext,
                         name = "Ardwloop Ext Demo",
                         modifier = Modifier.padding(innerPadding)
@@ -42,7 +43,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
+fun Greeting(
+    activity: MainActivity,
+    context: Context,
+    name: String,
+    modifier: Modifier = Modifier
+) {
 
     Logger.skipMsg = true
     val modifier = Modifier.padding(Dp(3f))
@@ -68,7 +74,7 @@ fun Greeting(context: Context, name: String, modifier: Modifier = Modifier) {
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.connectExc(context);
+                BluetoothHandler.handler.connectExc(activity, context);
             }) {
                 Text(
                     text = "Connect",

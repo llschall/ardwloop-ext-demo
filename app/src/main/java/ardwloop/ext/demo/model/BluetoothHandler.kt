@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import ardwloop.ext.demo.MainActivity
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import java.util.UUID
 
@@ -21,20 +22,20 @@ class BluetoothHandler {
 
     val logs = LogsModel()
 
-    fun connectExc(context: Context) {
+    fun connectExc(activity: MainActivity, context: Context) {
         try {
-            connect(context = context)
+            connect(activity = activity, context = context)
         } catch (error: Throwable) {
             logs.err(error)
         }
     }
 
-    private fun connect(context: Context) {
+    private fun connect(context: Context, activity: MainActivity) {
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.msg("Enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
                 context,
-                Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.BLUETOOTH
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             logs.msg("Connection permission granted.")
@@ -86,7 +87,7 @@ class BluetoothHandler {
         return array.toByteArray()
     }
 
-    val program = DemoProgram()
+    val program = DemoProgram(logs)
 
     fun print() {
         logs.dump()
@@ -95,8 +96,8 @@ class BluetoothHandler {
     fun demo() {
         try {
             val starter = ArdwloopExtStarter()
-            starter.start(program, socket!!, "HC05")
-            logs.msg("Demo started")
+            starter.start(program, 9600, socket!!, "HC05")
+            logs.msg("Demo started ")
             logs.status[0] = "OFF"
         } catch (e: Exception) {
             logs.msg("ERR: " + e.message.toString())
