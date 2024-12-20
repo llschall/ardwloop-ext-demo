@@ -53,8 +53,14 @@ fun Greeting(
     Logger.skipMsg = true
     val modifier = Modifier.padding(Dp(3f))
 
+    val version = context.packageManager.getPackageInfo(context.packageName, 0)
     Row {
         Column {
+            Text(
+                text = "Demo " + version.versionName,
+                modifier = modifier,
+                fontSize = 42.sp
+            )
             Text(
                 text = "ardwloop " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT,
                 modifier = modifier,

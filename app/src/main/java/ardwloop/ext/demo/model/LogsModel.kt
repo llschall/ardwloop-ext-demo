@@ -15,11 +15,14 @@ class LogsModel() : ViewModel() {
     val status = List(1) { "not started" }.toMutableStateList()
 
     fun dump() {
+        msg("Dump 546")
         msg("ArdwloopExt:" + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT)
         msg("Ardwloop: " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT)
-        msg("Runtime: " + Runtime.getRuntime().availableProcessors());
-        msg("Runtime: " + Runtime.getRuntime().freeMemory() / 1024)
-        msg("Runtime: " + Runtime.getRuntime().maxMemory() / 1024)
+        msg(
+            "Runtime: " + Runtime.getRuntime()
+                .availableProcessors() + "&" + Runtime.getRuntime()
+                .freeMemory() / 1024 + "&" + Runtime.getRuntime().maxMemory() / 1024
+        )
     }
 
     fun msg(msg: String) {

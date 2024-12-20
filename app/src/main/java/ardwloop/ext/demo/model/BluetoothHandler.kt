@@ -36,25 +36,12 @@ class BluetoothHandler {
         logs.msg("Enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
                 context,
-                Manifest.permission.BLUETOOTH
+                Manifest.permission.BLUETOOTH_CONNECT
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            logs.msg("Connection permission granted.")
-            for (device in manager.adapter.bondedDevices) {
-                logs.msg("name: " + device.name)
-                if (device.name == "HC05") {
-                    logs.msg("=== Found HC05 ===")
-                    val uuid = UUID.fromString(SPP_UUID)
-                    socket = device.createRfcommSocketToServiceRecord(uuid)
-                    socket!!.connect()
-                    logs.msg("" + socket!!.connectionType)
-                    logs.msg("" + socket!!.maxReceivePacketSize)
-                    logs.msg("" + socket!!.maxTransmitPacketSize)
-                }
-            }
-            logs.msg("Finished.")
+            logs.msg("BLUETOOTH_CONNECT granted.")
         } else {
-            logs.msg("Insufficient connection permissions.")
+            logs.msg("BLUETOOTH_CONNECT not granted.")
 
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -64,6 +51,23 @@ class BluetoothHandler {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
         }
+
+        logs.msg("Trying to connect...: ")
+        for (device in manager.adapter.bondedDevices) {
+            logs.msg("name: " + device.name)
+            if (device.name == "HC05") {
+                logs.msg("=== Found HC05 ===")
+                val uuid = UUID.fromString(SPP_UUID)
+                socket = device.createRfcommSocketToServiceRecord(uuid)
+                socket!!.connect()
+                logs.msg(
+                    "" + socket!!.connectionType
+                            + "&" + socket!!.maxReceivePacketSize
+                            + "&" + socket!!.maxTransmitPacketSize
+                )
+            }
+        }
+        logs.msg("Finished.")
     }
 
     fun close() {
