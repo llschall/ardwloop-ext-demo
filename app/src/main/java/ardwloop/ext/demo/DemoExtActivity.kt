@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,10 +32,8 @@ class DemoExtActivity : ComponentActivity() {
             ArdwloopTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     DemoExt(
-                        activity = this,
                         context = applicationContext,
-                        name = "Ardwloop Ext Demo",
-                        modifier = Modifier.padding(innerPadding)
+                        paddingValues = innerPadding
                     )
                 }
             }
@@ -44,14 +43,14 @@ class DemoExtActivity : ComponentActivity() {
 
 @Composable
 fun DemoExt(
-    activity: DemoExtActivity,
     context: Context,
-    name: String,
-    modifier: Modifier = Modifier
+    paddingValues: PaddingValues
 ) {
 
     Logger.skipMsg = true
-    val modifier = Modifier.padding(Dp(3f))
+    val modifier = Modifier
+        .padding(paddingValues)
+        .padding(Dp(3f))
 
     val version = context.packageManager.getPackageInfo(context.packageName, 0)
     Row {
@@ -80,7 +79,7 @@ fun DemoExt(
             }
             Spacer(modifier)
             Button(onClick = {
-                BluetoothHandler.handler.connectExc(activity, context);
+                BluetoothHandler.handler.connectExc(context);
             }) {
                 Text(
                     text = "Connect",
@@ -118,9 +117,11 @@ fun DemoExt(
                 )
             }
             Spacer(modifier)
-            Button(onClick = {
-                BluetoothHandler.handler.demo()
-            }) {
+            Button(
+                enabled = BluetoothHandler.handler.demoEnabled,
+                onClick = {
+                    BluetoothHandler.handler.demo()
+                }) {
                 Text(
                     text = "Demo",
                     fontSize = 42.sp
@@ -131,9 +132,11 @@ fun DemoExt(
                 fontSize = 28.sp
             )
             Spacer(modifier)
-            Button(onClick = {
-                BluetoothHandler.handler.switch()
-            }) {
+            Button(
+                enabled = BluetoothHandler.handler.switchEnabled,
+                onClick = {
+                    BluetoothHandler.handler.switch()
+                }) {
                 Text(
                     text = "Switch",
                     fontSize = 72.sp

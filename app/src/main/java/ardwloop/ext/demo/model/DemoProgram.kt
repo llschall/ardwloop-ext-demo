@@ -3,12 +3,13 @@ package ardwloop.ext.demo.model
 import org.llschall.ardwloop.IArdwProgram
 import org.llschall.ardwloop.value.ValueMap
 
-class DemoProgram(private val logs: LogsModel) : IArdwProgram {
+class DemoProgram(private val logs: LogsModel, val onSetup: Function0<Unit>) : IArdwProgram {
 
     var v = 0
 
     override fun ardwSetup(s: ValueMap): ValueMap {
         logs.msg("== Program Setup OK ==")
+        onSetup()
         return ValueMap(2, 3, 4, 5, 6)
     }
 

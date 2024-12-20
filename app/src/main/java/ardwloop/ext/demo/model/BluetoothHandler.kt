@@ -6,7 +6,9 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
-import ardwloop.ext.demo.DemoExtActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import org.llschall.ardwloop.structure.StructureTimer
 import java.util.UUID
@@ -19,19 +21,25 @@ class BluetoothHandler {
         val handler: BluetoothHandler = BluetoothHandler()
     }
 
+    var switchEnabled = false
+
     private var socket: BluetoothSocket? = null
 
     val logs = LogsModel()
 
-    fun connectExc(activity: DemoExtActivity, context: Context) {
-        try {
-            connect(activity = activity, context = context)
-        } catch (error: Throwable) {
-            logs.err(error)
+    fun connectExc(context: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                connect(context = context)
+                logs.msg("Connected ? " + socket!!.isConnected)
+            } catch (error: Throwable) {
+                logs.err(error)
+            }
         }
+        logs.msg("Connect...")
     }
 
-    private fun connect(context: Context, activity: DemoExtActivity) {
+    private fun connect(context: Context) {
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.msg("Enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
@@ -65,6 +73,7 @@ class BluetoothHandler {
                             + "&" + socket!!.maxReceivePacketSize
                             + "&" + socket!!.maxTransmitPacketSize
                 )
+                demoEnabled = socket!!.isConnected
             }
         }
         logs.msg("Finished.")
@@ -92,21 +101,26 @@ class BluetoothHandler {
         return array.toByteArray()
     }
 
-    val program = DemoProgram(logs)
+    private val program = DemoProgram(logs) { switchEnabled = true }
 
     fun print() {
         logs.dump()
     }
 
+    var demoEnabled = false
+
     fun demo() {
-        try {
-            val starter = ArdwloopExtStarter()
-            starter.start(program, 9600, socket!!, "HC05")
-            logs.msg("Demo started ")
-            logs.status[0] = "OFF"
-        } catch (e: Exception) {
-            logs.msg("ERR: " + e.message.toString())
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val starter = ArdwloopExtStarter()
+                starter.start(program, 9600, socket!!, "HC05")
+                logs.msg("Demo started.")
+                logs.status[0] = "OFF"
+            } catch (e: Exception) {
+                logs.msg("ERR: " + e.message.toString())
+            }
         }
+        logs.msg("Demo starting...")
     }
 
     fun switch() {
@@ -122,5 +136,6 @@ class BluetoothHandler {
     fun exit() {
         StructureTimer.get().shutdown()
     }
+
 
 }
