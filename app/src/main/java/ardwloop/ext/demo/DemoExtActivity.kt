@@ -24,13 +24,13 @@ import org.llschall.ardwloop.ArdwloopStarter
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import org.llschall.ardwloop.structure.utils.Logger
 
-class MainActivity : ComponentActivity() {
+class DemoExtActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             ArdwloopTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
+                    DemoExt(
                         activity = this,
                         context = applicationContext,
                         name = "Ardwloop Ext Demo",
@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(
-    activity: MainActivity,
+fun DemoExt(
+    activity: DemoExtActivity,
     context: Context,
     name: String,
     modifier: Modifier = Modifier

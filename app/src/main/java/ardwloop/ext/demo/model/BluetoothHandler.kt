@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothSocket
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
-import ardwloop.ext.demo.MainActivity
+import ardwloop.ext.demo.DemoExtActivity
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import org.llschall.ardwloop.structure.StructureTimer
 import java.util.UUID
@@ -23,7 +23,7 @@ class BluetoothHandler {
 
     val logs = LogsModel()
 
-    fun connectExc(activity: MainActivity, context: Context) {
+    fun connectExc(activity: DemoExtActivity, context: Context) {
         try {
             connect(activity = activity, context = context)
         } catch (error: Throwable) {
@@ -31,7 +31,7 @@ class BluetoothHandler {
         }
     }
 
-    private fun connect(context: Context, activity: MainActivity) {
+    private fun connect(context: Context, activity: DemoExtActivity) {
         val manager = context.getSystemService(BluetoothManager::class.java)
         logs.msg("Enabled: " + manager.adapter.isEnabled)
         if (ActivityCompat.checkSelfPermission(
