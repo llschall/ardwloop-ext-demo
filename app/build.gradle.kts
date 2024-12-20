@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "ardwloop.ext.demo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "ardwloop.ext.demo"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 12
         versionName = "0.9.12"
 
