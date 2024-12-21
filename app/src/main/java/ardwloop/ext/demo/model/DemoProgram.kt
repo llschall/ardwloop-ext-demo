@@ -17,14 +17,6 @@ class DemoProgram(private val logs: LogsModel, val onSetup: Function0<Unit>) : I
         return ValueMap(v, 3, 4, 5, 6)
     }
 
-    override fun getRc(): Int {
-        return 1
-    }
-
-    override fun getSc(): Int {
-        return 1
-    }
-
     override fun getReadDelayMs(): Int {
         return 99
     }
