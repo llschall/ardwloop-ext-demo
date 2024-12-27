@@ -23,7 +23,6 @@ import ardwloop.ext.demo.model.BluetoothHandler
 import ardwloop.ext.demo.ui.theme.ArdwloopTheme
 import org.llschall.ardwloop.ArdwloopStarter
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
-import org.llschall.ardwloop.structure.utils.Logger
 
 class DemoExtActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,6 @@ fun DemoExt(
     paddingValues: PaddingValues
 ) {
 
-    Logger.skipMsg = true
     val modifier = Modifier
         .padding(paddingValues)
         .padding(Dp(3f))
