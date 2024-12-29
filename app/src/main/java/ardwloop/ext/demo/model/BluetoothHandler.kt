@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.llschall.ardwloop.IArdwConfig
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import org.llschall.ardwloop.structure.StructureTimer
 import java.util.UUID
@@ -20,6 +21,8 @@ class BluetoothHandler {
     companion object {
         val handler: BluetoothHandler = BluetoothHandler()
     }
+
+    val name = "HC05"
 
     var switchEnabled = false
 
@@ -60,11 +63,11 @@ class BluetoothHandler {
             // for ActivityCompat#requestPermissions for more details.
         }
 
-        logs.msg("Trying to connect...: ")
+        logs.msg("Trying to connect to $name")
         for (device in manager.adapter.bondedDevices) {
-            logs.msg("name: " + device.name)
-            if (device.name == "HC05") {
-                logs.msg("=== Found HC05 ===")
+            logs.msg("Found: " + device.name)
+            if (device.name == name) {
+                logs.msg("=== Found $name ===")
                 val uuid = UUID.fromString(SPP_UUID)
                 socket = device.createRfcommSocketToServiceRecord(uuid)
                 socket!!.connect()
@@ -113,7 +116,7 @@ class BluetoothHandler {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val starter = ArdwloopExtStarter()
-                starter.start(program, 9600, socket!!, "HC05")
+                starter.start(program, IArdwConfig.BAUD_9600, socket!!, name)
                 logs.msg("Demo started.")
                 logs.status[0] = "OFF"
             } catch (e: Exception) {
