@@ -13,8 +13,10 @@ class LogsModel() : ViewModel() {
 
     val bytes = List(2) { (99).toByte() }.toMutableStateList()
 
-    val status = List(1) { "not started" }.toMutableStateList()
+    val devices = List(1) { "device?" }.toMutableStateList()
+    val device = mutableStateOf("")
 
+    val status = mutableStateOf("not started")
     var demoEnabled = mutableStateOf(false)
     var switchEnabled = mutableStateOf(false)
 

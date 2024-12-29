@@ -22,11 +22,53 @@ class BluetoothHandler {
         val handler: BluetoothHandler = BluetoothHandler()
     }
 
-    val name = "BT2024"
-
     private var socket: BluetoothSocket? = null
 
     val logs = LogsModel()
+
+    fun listDevicesExc(context: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                listDevices(context = context)
+                val connected = socket!!.isConnected
+                logs.msg("Connected ? $connected")
+                logs.demoEnabled.value = true
+            } catch (error: Throwable) {
+                logs.err(error)
+            }
+        }
+    }
+
+    private fun listDevices(context: Context) {
+        val manager = context.getSystemService(BluetoothManager::class.java)
+        logs.msg("Enabled: " + manager.adapter.isEnabled)
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            logs.msg("BLUETOOTH_CONNECT granted.")
+        } else {
+            logs.msg("BLUETOOTH_CONNECT not granted.")
+
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+        }
+
+        logs.msg("List devices...")
+        logs.devices.clear()
+        for (device in manager.adapter.bondedDevices) {
+            logs.msg("Found: " + device.name)
+            logs.devices.add(device.name)
+        }
+        logs.device.value = logs.devices[0]
+        logs.msg("Finished.")
+    }
 
     fun connectExc(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -53,15 +95,9 @@ class BluetoothHandler {
             logs.msg("BLUETOOTH_CONNECT granted.")
         } else {
             logs.msg("BLUETOOTH_CONNECT not granted.")
-
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
         }
+
+        val name = logs.device.value
 
         logs.msg("Trying to connect to $name")
         for (device in manager.adapter.bondedDevices) {
@@ -113,9 +149,9 @@ class BluetoothHandler {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val starter = ArdwloopExtStarter()
-                starter.start(program, IArdwConfig.BAUD_9600, socket!!, name)
+                starter.start(program, IArdwConfig.BAUD_9600, socket!!, "")
                 logs.msg("Demo started.")
-                logs.status[0] = "OFF"
+                logs.status.value = "OFF"
             } catch (e: Exception) {
                 logs.msg("ERR: " + e.message.toString())
             }
@@ -126,10 +162,10 @@ class BluetoothHandler {
     fun switch() {
         if (handler.program.v == 0) {
             handler.program.v = 1
-            logs.status[0] = "ON"
+            logs.status.value = "ON"
         } else {
             handler.program.v = 0
-            logs.status[0] = "OFF"
+            logs.status.value = "OFF"
         }
     }
 

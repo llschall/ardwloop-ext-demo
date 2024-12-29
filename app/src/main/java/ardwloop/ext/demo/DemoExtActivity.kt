@@ -55,7 +55,10 @@ fun DemoExt(
 
     Row {
         LeftColumn(modifier, version.versionName!!,
-            connectExt = {
+            listFct = {
+                BluetoothHandler.handler.listDevicesExc(context)
+            },
+            connectFct = {
                 BluetoothHandler.handler.connectExc(context)
             }
         )
