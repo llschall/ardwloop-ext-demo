@@ -1,5 +1,6 @@
 package ardwloop.ext.demo.model
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import org.llschall.ardwloop.ArdwloopStarter
@@ -14,8 +15,10 @@ class LogsModel() : ViewModel() {
 
     val status = List(1) { "not started" }.toMutableStateList()
 
+    var demoEnabled = mutableStateOf(false)
+    var switchEnabled = mutableStateOf(false)
+
     fun dump() {
-        msg("Dump 546")
         msg("ArdwloopExt:" + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT)
         msg("Ardwloop: " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT)
         msg(

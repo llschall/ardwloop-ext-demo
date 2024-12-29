@@ -22,9 +22,7 @@ class BluetoothHandler {
         val handler: BluetoothHandler = BluetoothHandler()
     }
 
-    val name = "HC05"
-
-    var switchEnabled = false
+    val name = "BT2024"
 
     private var socket: BluetoothSocket? = null
 
@@ -34,7 +32,9 @@ class BluetoothHandler {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 connect(context = context)
-                logs.msg("Connected ? " + socket!!.isConnected)
+                val connected = socket!!.isConnected
+                logs.msg("Connected ? $connected")
+                logs.demoEnabled.value = true
             } catch (error: Throwable) {
                 logs.err(error)
             }
@@ -76,7 +76,6 @@ class BluetoothHandler {
                             + "&" + socket!!.maxReceivePacketSize
                             + "&" + socket!!.maxTransmitPacketSize
                 )
-                demoEnabled = socket!!.isConnected
             }
         }
         logs.msg("Finished.")
@@ -104,13 +103,11 @@ class BluetoothHandler {
         return array.toByteArray()
     }
 
-    private val program = DemoProgram(logs) { switchEnabled = true }
+    private val program = DemoProgram(logs)
 
     fun print() {
         logs.dump()
     }
-
-    var demoEnabled = false
 
     fun demo() {
         CoroutineScope(Dispatchers.IO).launch {
