@@ -50,6 +50,12 @@ android {
     }
 }
 
+tasks.withType<Test> {
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+
 dependencies {
 
     implementation(libs.ardwloop.ext)
