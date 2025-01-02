@@ -12,10 +12,6 @@ import kotlinx.coroutines.launch
 import org.llschall.ardwloop.IArdwConfig
 import org.llschall.ardwloop.ext.ArdwloopExtStarter
 import org.llschall.ardwloop.structure.StructureTimer
-import java.util.UUID
-
-//See https://developer.android.com/reference/android/bluetooth/BluetoothDevice
-const val SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB"
 
 class BluetoothHandler {
     companion object {
@@ -104,7 +100,7 @@ class BluetoothHandler {
             logs.msg("Found: " + device.name)
             if (device.name == name) {
                 logs.msg("=== Found $name ===")
-                val uuid = UUID.fromString(SPP_UUID)
+                val uuid = ArdwloopExtStarter().SPP_UUID
                 socket = device.createRfcommSocketToServiceRecord(uuid)
                 socket!!.connect()
                 logs.msg(
