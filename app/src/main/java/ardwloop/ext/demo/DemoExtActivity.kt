@@ -7,24 +7,18 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.sp
 import ardwloop.ext.demo.model.BluetoothHandler
-import ardwloop.ext.demo.ui.LeftColumn
-import ardwloop.ext.demo.ui.theme.ArdwloopTheme
-import org.llschall.ardwloop.ArdwloopStarter
-import org.llschall.ardwloop.ext.ArdwloopExtStarter
+import ardwloop.ext.demo.view.LeftColumn
+import ardwloop.ext.demo.view.theme.ArdwloopTheme
 
 class DemoExtActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

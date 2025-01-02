@@ -1,4 +1,4 @@
-package ardwloop.ext.demo.ui
+package ardwloop.ext.demo.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

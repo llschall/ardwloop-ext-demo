@@ -1,4 +1,4 @@
-package ardwloop.ext.demo.ui
+package ardwloop.ext.demo.view
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.selection.selectableGroup
@@ -6,6 +6,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import ardwloop.ext.demo.model.BluetoothHandler
 

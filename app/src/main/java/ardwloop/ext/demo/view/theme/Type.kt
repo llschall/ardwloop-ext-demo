@@ -1,4 +1,4 @@
-package ardwloop.ext.demo.ui.theme
+package ardwloop.ext.demo.view.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

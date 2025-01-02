@@ -1,4 +1,4 @@
-package ardwloop.ext.demo.ui.theme
+package ardwloop.ext.demo.view.theme
 
 import androidx.compose.ui.graphics.Color
 
