@@ -169,5 +169,4 @@ class BluetoothHandler {
         StructureTimer.get().shutdown()
     }
 
-
 }

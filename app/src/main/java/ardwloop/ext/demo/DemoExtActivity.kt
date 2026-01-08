@@ -92,6 +92,14 @@ fun DemoExt(
 
         Row {
             Button(onClick = {
+                controller.navigate(Route.page)
+            }) {
+                Text(
+                    text = "Navigate",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
                 BluetoothHandler.handler.print()
             }) {
                 Text(
@@ -99,9 +107,6 @@ fun DemoExt(
                     fontSize = 28.sp
                 )
             }
-            Button(onClick = {
-                controller.navigate(Route.page)
-            }) { Text("Navigate") }
             Text(
                 text = "Demo $version",
                 modifier = modifier,

@@ -9,7 +9,7 @@ import java.util.Date
 
 class LogsModel() : ViewModel() {
 
-    val logs = List(2) { "*" }.toMutableStateList()
+    val logs = List(1) { "Welcome !" }.toMutableStateList()
 
     val bytes = List(2) { (99).toByte() }.toMutableStateList()
 
