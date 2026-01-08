@@ -12,8 +12,8 @@ android {
         applicationId = "ardwloop.ext.demo"
         minSdk = 24
         targetSdk = 35
-        versionCode = 16
-        versionName = "0.9.16"
+        versionCode = 100
+        versionName = "0.9.17"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
