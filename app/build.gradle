@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'ardwloop.ext.demo'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId 'ardwloop.ext.demo'
         minSdk 24
-        targetSdk 35
+        targetSdk 36
         versionCode 100
         versionName '0.9.17'
 
@@ -47,7 +47,7 @@ android {
     }
 }
 
-tasks.withType(Test) {
+tasks.withType(Test).configureEach {
     testLogging {
         events "passed", "skipped", "failed"
     }
