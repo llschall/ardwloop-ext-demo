@@ -20,5 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ardwloop-ext-demo"
-include(":app")
- 
+include ':app'
