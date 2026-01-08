@@ -44,7 +44,7 @@ fun LeftColumn(
             }) {
                 Text(
                     text = "Read",
-                    fontSize = 20.sp
+                    fontSize = 12.sp
                 )
             }
             Button(onClick = {
@@ -52,7 +52,7 @@ fun LeftColumn(
             }) {
                 Text(
                     text = "Write",
-                    fontSize = 20.sp
+                    fontSize = 12.sp
                 )
             }
             Button(onClick = {
@@ -60,7 +60,7 @@ fun LeftColumn(
             }) {
                 Text(
                     text = "Close",
-                    fontSize = 20.sp
+                    fontSize = 12.sp
                 )
             }
         }
@@ -75,19 +75,21 @@ fun LeftColumn(
                 fontSize = 42.sp
             )
         }
-        Text(
-            text = BluetoothHandler.handler.logs.status.value,
-            fontSize = 28.sp
-        )
         Spacer(modifier)
-        Button(
-            enabled = BluetoothHandler.handler.logs.switchEnabled.value,
-            onClick = {
-                BluetoothHandler.handler.switch()
-            }) {
+        Row {
+            Button(
+                enabled = BluetoothHandler.handler.logs.switchEnabled.value,
+                onClick = {
+                    BluetoothHandler.handler.switch()
+                }) {
+                Text(
+                    text = "Switch",
+                    fontSize = 72.sp
+                )
+            }
             Text(
-                text = "Switch",
-                fontSize = 72.sp
+                text = BluetoothHandler.handler.logs.status.value,
+                fontSize = 28.sp
             )
         }
         Spacer(modifier)
