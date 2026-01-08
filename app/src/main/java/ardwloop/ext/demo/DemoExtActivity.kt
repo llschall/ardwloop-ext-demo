@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -56,13 +57,13 @@ fun Navigator(
     paddingValues: PaddingValues
 ) {
     val controller = rememberNavController()
-    NavHost(navController = controller , startDestination = Route.home) {
+    NavHost(navController = controller, startDestination = Route.home) {
         composable(route = Route.home) {
             DemoExt(
                 context = context,
                 paddingValues = paddingValues,
                 controller = controller
-                )
+            )
         }
         composable(route = Route.page) {
             PageView()
@@ -80,7 +81,7 @@ fun DemoExt(
         .padding(paddingValues)
         .padding(Dp(3f))
 
-    val version = context.packageManager.getPackageInfo(context.packageName, 0)
+    val version = context.packageManager.getPackageInfo(context.packageName, 0).versionName
     val scrollState = rememberScrollState()
 
     LaunchedEffect(BluetoothHandler.handler.logs.logs.size) {
@@ -88,11 +89,28 @@ fun DemoExt(
     }
 
     Column {
-        Button(onClick = {
-            controller.navigate(Route.page)
-        }) { Text("Navigate") }
+
         Row {
-            LeftColumn(modifier, version.versionName!!,
+            Button(onClick = {
+                BluetoothHandler.handler.print()
+            }) {
+                Text(
+                    text = "Print",
+                    fontSize = 28.sp
+                )
+            }
+            Button(onClick = {
+                controller.navigate(Route.page)
+            }) { Text("Navigate") }
+            Text(
+                text = "Demo $version",
+                modifier = modifier,
+                fontSize = 42.sp
+            )
+        }
+        Row {
+            LeftColumn(
+                modifier,
                 listFct = {
                     BluetoothHandler.handler.listDevicesExc(context)
                 },

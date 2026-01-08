@@ -10,33 +10,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import ardwloop.ext.demo.model.BluetoothHandler
-import org.llschall.ardwloop.ArdwloopStarter
-import org.llschall.ardwloop.ext.ArdwloopExtStarter
 
 @Preview
 @Composable
 fun LeftColumn(
     modifier: Modifier = Modifier,
-    version: String = "0.X.X",
     listFct: () -> Unit = {},
     connectFct: () -> Unit = {},
 ) {
 
     Column {
-        Text(
-            text = "Demo $version",
-            modifier = modifier,
-            fontSize = 42.sp
-        )
-        Button(onClick = {
-            BluetoothHandler.handler.print()
-        }) {
-            Text(
-                text = "Print",
-                fontSize = 28.sp
-            )
-        }
-        Spacer(modifier)
         Button(onClick = listFct) {
             Text(
                 text = "List",
