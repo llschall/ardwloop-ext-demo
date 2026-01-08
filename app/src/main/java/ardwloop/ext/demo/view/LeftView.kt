@@ -28,15 +28,6 @@ fun LeftColumn(
             modifier = modifier,
             fontSize = 42.sp
         )
-        Text(
-            text = "ardwloop " + ArdwloopStarter.VERSION + " #" + ArdwloopStarter.VERSION_INT,
-            modifier = modifier,
-            fontSize = 12.sp
-        )
-        Text(
-            text = "ardwloop-ext " + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT,
-            modifier = modifier, fontSize = 12.sp
-        )
         Button(onClick = {
             BluetoothHandler.handler.print()
         }) {
@@ -52,7 +43,7 @@ fun LeftColumn(
                 fontSize = 42.sp
             )
         }
-        DeviceListView(list =  BluetoothHandler.handler.logs.devices)
+        DeviceListView(list = BluetoothHandler.handler.logs.devices)
         Spacer(modifier)
         Button(onClick = connectFct) {
             Text(

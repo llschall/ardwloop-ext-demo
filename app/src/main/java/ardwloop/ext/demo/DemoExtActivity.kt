@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavHostController
@@ -80,6 +81,11 @@ fun DemoExt(
         .padding(Dp(3f))
 
     val version = context.packageManager.getPackageInfo(context.packageName, 0)
+    val scrollState = rememberScrollState()
+
+    LaunchedEffect(BluetoothHandler.handler.logs.logs.size) {
+        scrollState.animateScrollTo(scrollState.maxValue)
+    }
 
     Column {
         Button(onClick = {
@@ -96,7 +102,7 @@ fun DemoExt(
             )
             Column(
                 modifier = Modifier.verticalScroll(
-                    rememberScrollState()
+                    scrollState
                 )
             ) {
                 for (text in BluetoothHandler.handler.logs.logs) {
@@ -108,4 +114,3 @@ fun DemoExt(
         }
     }
 }
-
