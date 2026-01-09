@@ -18,7 +18,7 @@ public class BuildTest {
 
     @Test
     public void checkArdwloop() {
-        assertEquals("0.3.1", ArdwloopStarter.VERSION);
+        assertEquals("0.3.9", ArdwloopStarter.VERSION);
         assertEquals(1001, ArdwloopStarter.VERSION_INT);
         assertEquals("0.2.2", new ArdwloopExtStarter().getVERSION());
         assertEquals(1001, new ArdwloopExtStarter().getVERSION_INT());
