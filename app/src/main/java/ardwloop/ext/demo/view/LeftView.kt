@@ -3,6 +3,8 @@ package ardwloop.ext.demo.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +21,7 @@ fun LeftColumn(
     connectFct: () -> Unit = {},
 ) {
 
-    Column {
+    Column(modifier.verticalScroll(rememberScrollState())) {
         Button(onClick = listFct) {
             Text(
                 text = "List",
