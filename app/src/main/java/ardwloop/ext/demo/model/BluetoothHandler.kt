@@ -135,7 +135,7 @@ class BluetoothHandler {
         return array.toByteArray()
     }
 
-    private val program = DemoProgram(logs)
+    val program = DemoProgram(logs)
 
     fun print() {
         logs.dump()
@@ -156,11 +156,11 @@ class BluetoothHandler {
     }
 
     fun switch() {
-        if (handler.program.v == 0) {
-            handler.program.v = 1
+        if (handler.program.builtInLed == 0) {
+            handler.program.builtInLed = 1
             logs.status.value = "ON"
         } else {
-            handler.program.v = 0
+            handler.program.builtInLed = 0
             logs.status.value = "OFF"
         }
     }

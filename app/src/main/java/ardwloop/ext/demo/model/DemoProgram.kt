@@ -5,16 +5,17 @@ import org.llschall.ardwloop.value.SerialData
 
 class DemoProgram(private val logs: LogsModel) : IArdwProgram {
 
-    var v = 0
+    var builtInLed = 0
 
     override fun ardwSetup(s: SerialData): SerialData {
         logs.msg("== Program Setup OK ==")
         logs.switchEnabled.value = true
-        return SerialData(2, 3, 4, 5, 6)
+        return SerialData()
     }
 
     override fun ardwLoop(s: SerialData): SerialData {
-        return SerialData(v, 3, 4, 5, 6)
+        logs.firstScreen.value = s.a.w == 1
+        return SerialData(builtInLed)
     }
 
     override fun getReadDelayMs(): Int {

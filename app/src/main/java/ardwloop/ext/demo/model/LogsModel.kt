@@ -19,6 +19,8 @@ class LogsModel() : ViewModel() {
     val status = mutableStateOf("not started")
     var demoEnabled = mutableStateOf(false)
     var switchEnabled = mutableStateOf(false)
+    
+    var firstScreen = mutableStateOf(true)
 
     fun dump() {
         msg("ArdwloopExt:" + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT)
