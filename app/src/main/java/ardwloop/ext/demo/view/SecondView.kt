@@ -2,9 +2,11 @@ package ardwloop.ext.demo.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,20 +31,31 @@ fun SecondView() {
     ) {
         val icon = "\uD83C\uDF89"
         Text(
-            text = "Happy new year",
+            modifier = Modifier.fillMaxWidth(),
+            text = "Happy New",
+            fontSize = 64.sp,
+            textAlign = TextAlign.Center,
+            color = Color(0xFF01579B)
+        )
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Year",
             fontSize = 64.sp,
             textAlign = TextAlign.Center,
             color = Color(0xFF01579B)
         )
         Spacer(modifier = Modifier.height(32.dp))
         Text(
+            modifier = Modifier.fillMaxWidth(),
             text = "2026",
             fontSize = 120.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(0xFF01579B)
+            color = Color(0xFF01579B),
+            textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(50.dp))
         Text(
+            modifier = Modifier.fillMaxWidth(),
             text = "$icon",
             fontSize = 160.sp,
             textAlign = TextAlign.Center,

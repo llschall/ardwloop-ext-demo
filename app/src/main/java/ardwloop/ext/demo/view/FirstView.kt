@@ -2,6 +2,7 @@ package ardwloop.ext.demo.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,7 +30,12 @@ fun FirstView() {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Measured distance is",
+            text = "The measured",
+            fontSize = 50.sp,
+            color = Color(0xFF01579B)
+        )
+        Text(
+            text = "distance is",
             fontSize = 50.sp,
             color = Color(0xFF01579B)
         )
