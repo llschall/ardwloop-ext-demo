@@ -14,9 +14,11 @@ class DemoProgram(private val logs: LogsModel) : IArdwProgram {
     }
 
     override fun ardwLoop(s: SerialData): SerialData {
+        logs.distance.doubleValue = s.d.x.toDouble() / 10
         logs.firstScreen.value = s.a.w == 1
         return SerialData(builtInLed)
     }
+
 
     override fun getReadDelayMs(): Int {
         return 99
