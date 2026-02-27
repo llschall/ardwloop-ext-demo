@@ -1,5 +1,6 @@
 package ardwloop.ext.demo.model
 
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
@@ -19,8 +20,10 @@ class LogsModel() : ViewModel() {
     val status = mutableStateOf("not started")
     var demoEnabled = mutableStateOf(false)
     var switchEnabled = mutableStateOf(false)
-    
+
     var firstScreen = mutableStateOf(true)
+
+    var distance = mutableDoubleStateOf(0.0);
 
     fun dump() {
         msg("ArdwloopExt:" + ArdwloopExtStarter().VERSION + " #" + ArdwloopExtStarter().VERSION_INT)
